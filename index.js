@@ -50,6 +50,14 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    // Create database and collection
+    const roomsCollection = client.db("stayVista").collection("rooms");
+
+    // get all rooms data form db
+    app.get("/rooms", async (req, res) => {
+      const result = await roomsCollection.find().toArray();
+      res.send(result);
+    });
     // auth related api
     app.post("/jwt", async (req, res) => {
       const user = req.body;
