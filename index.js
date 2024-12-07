@@ -58,6 +58,13 @@ async function run() {
       const result = await roomsCollection.find().toArray();
       res.send(result);
     });
+    // get a specific room
+    app.get("/rooms/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await roomsCollection.findOne(query);
+      res.send(result);
+    });
     // auth related api
     app.post("/jwt", async (req, res) => {
       const user = req.body;
